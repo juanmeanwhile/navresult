@@ -49,6 +49,18 @@ class DashboardFragment : Fragment() {
             setMainFragmentResult(REQ_KEY, bundleOf(RET_RESULT to DashBoardResult("XXX")))
         }
 
+        root.findViewById<Button>(R.id.button3).setOnClickListener {
+            navigateToDestination(Destination.ViewPager)
+        }
+
+        root.findViewById<Button>(R.id.button4).setOnClickListener {
+            navigateToDestination(Destination.Deeplink("app://viewpager/child2"))
+        }
+
+        root.findViewById<Button>(R.id.button5).setOnClickListener {
+            navigateToDestination(Destination.Nested)
+        }
+
         setupObservers()
 
         return root

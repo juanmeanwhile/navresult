@@ -14,7 +14,16 @@ sealed class Destination() : Parcelable {
     class Notifications(val someData: String) : Destination()
 
     @Parcelize
-    object Home: Destination()
+    object Home : Destination()
+
+    @Parcelize
+    object ViewPager : Destination()
+
+    @Parcelize
+    object Nested : Destination()
+
+    @Parcelize
+    class Deeplink(val uri: String) : Destination()
 
     /**
      * Extends this when origin screen must be known.

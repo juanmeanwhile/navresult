@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewpager_graph"
+    app:startDestination="@+id/navigation_viewPager">
+
+    <fragment
+        android:id="@+id/navigation_viewPager"
+        android:name="com.meanwhile.viewpager.ViewpagerFragment"
+        android:label="ViewPagerFragment"
+        tools:layout="@layout/fragment_viewpager">
+        <deepLink app:uri="app://viewpager" />
+        <action
+            android:id="@+id/action_viewPager_to_Child1"
+            app:destination="@id/viewpager_child1" />
+        <action
+            android:id="@+id/action_viewPager_to_Child2"
+            app:destination="@id/viewpager_child2" />
+        <action
+            android:id="@+id/action_viewPager_to_Child3"
+            app:destination="@id/viewpager_child3" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/viewpager_child1"
+        android:name="com.meanwhile.viewpager.ViewPagerChild1Fragment"
+        android:label="Child1"
+        tools:layout="@layout/fragment_viewpager_child1">
+        <deepLink app:uri="app://viewpager/child1" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/viewpager_child2"
+        android:name="com.meanwhile.viewpager.ViewPagerChild2Fragment"
+        android:label="Child2"
+        tools:layout="@layout/fragment_viewpager_child2">
+        <deepLink app:uri="app://viewpager/child2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/viewpager_child3"
+        android:name="com.meanwhile.viewpager.ViewPagerChild3Fragment"
+        android:label="Child3"
+        tools:layout="@layout/fragment_viewpager_child3">
+        <deepLink app:uri="app://viewpager/child3" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nested"
+        android:name="com.meanwhile.viewpager.NestedFragment"
+        android:label="nested"
+        tools:layout="@layout/fragment_nested">
+        <deepLink app:uri="app://viewpager/child3/nested" />
+    </fragment>
+
+    <action
+        android:id="@+id/navigate_child3_to_nested"
+        app:destination="@id/nested" />
+
+</navigation>
