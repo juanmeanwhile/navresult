@@ -28,9 +28,9 @@ class DashboardFragment : Fragment() {
     private lateinit var navViewModel: NavigationViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
         navViewModel = ViewModelProvider(requireActivity()).get(NavigationViewModel::class.java)
@@ -50,11 +50,11 @@ class DashboardFragment : Fragment() {
         }
 
         root.findViewById<Button>(R.id.button3).setOnClickListener {
-            navigateToDestination(Destination.ViewPager)
+            navigateToDestination(Destination.ViewPager())
         }
 
         root.findViewById<Button>(R.id.button4).setOnClickListener {
-            navigateToDestination(Destination.Deeplink("app://viewpager/child2"))
+            navigateToDestination(Destination.Deeplink("app://root/1"))
         }
 
         root.findViewById<Button>(R.id.button5).setOnClickListener {
@@ -67,7 +67,6 @@ class DashboardFragment : Fragment() {
     }
 
     private fun setupObservers() {
-
 
         lifecycleScope.launchWhenStarted {
             navViewModel.navEventLiveData(NavEvent.InterestingMainEvent).observe(viewLifecycleOwner) {

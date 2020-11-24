@@ -17,7 +17,7 @@ sealed class Destination() : Parcelable {
     object Home : Destination()
 
     @Parcelize
-    object ViewPager : Destination()
+    class ViewPager(val position: Int = 0) : Destination()
 
     @Parcelize
     object Nested : Destination()

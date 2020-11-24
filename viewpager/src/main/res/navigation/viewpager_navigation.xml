@@ -27,24 +27,22 @@
         android:name="com.meanwhile.viewpager.ViewPagerChild1Fragment"
         android:label="Child1"
         tools:layout="@layout/fragment_viewpager_child1">
-        <deepLink app:uri="app://viewpager/child1" />
+        <!--        those deeplinks won't work we need to use a deeplink
+to viewpager fragment with the position-->
+        <!--        <deepLink app:uri="app://viewpager/child1" />-->
     </fragment>
 
     <fragment
         android:id="@+id/viewpager_child2"
         android:name="com.meanwhile.viewpager.ViewPagerChild2Fragment"
         android:label="Child2"
-        tools:layout="@layout/fragment_viewpager_child2">
-        <deepLink app:uri="app://viewpager/child2" />
-    </fragment>
+        tools:layout="@layout/fragment_viewpager_child2" />
 
     <fragment
         android:id="@+id/viewpager_child3"
         android:name="com.meanwhile.viewpager.ViewPagerChild3Fragment"
         android:label="Child3"
-        tools:layout="@layout/fragment_viewpager_child3">
-        <deepLink app:uri="app://viewpager/child3" />
-    </fragment>
+        tools:layout="@layout/fragment_viewpager_child3" />
 
     <fragment
         android:id="@+id/nested"

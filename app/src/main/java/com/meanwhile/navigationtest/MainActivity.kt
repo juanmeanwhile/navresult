@@ -16,6 +16,7 @@ import com.meanwhile.featureb.NotificationsFragment
 import com.meanwhile.navigation_main_comms.Destination
 import com.meanwhile.navigation_main_comms.NavigationViewModel
 import com.meanwhile.navigation_main_comms.setFragmentNavigationListener
+import com.meanwhile.viewpager.RootFragment
 import com.meanwhile.viewpager.ViewpagerFragment
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.action_global_navigation_viewpager))
+            R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.navigation_root))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
@@ -57,16 +58,21 @@ class MainActivity : AppCompatActivity() {
                 is Destination.DestinationWithOrigin -> {
                     navController.navigate(R.id.action_navigation_notifications_to_secondLevelFragment2)
                 }
+
+                // this should be only used inside root
                 is Destination.ViewPager -> {
-                    navController.navigate(R.id.action_global_navigation_viewpager)
+                    val args = ViewpagerFragment.generateArgs(destination.position)
+                    navController.navigate(R.id.action_global_navigation_viewpager, args)
                 }
                 is Destination.Deeplink -> {
                     navController.navigate(Uri.parse(destination.uri))
                 }
                 Destination.Nested -> {
-                    val args = ViewpagerFragment.generateArgs(3)
-                    navController.navigate(R.id.action_global_navigation_viewpager, args)
-                    navController.navigate(R.id.navigate_child3_to_nested)
+                    // in this case it's hardcoded because we know that nested action is on pos 2
+                    val args = RootFragment.generateArgs(2)
+                    navController.navigate(R.id.action_global_navigation_root, args)
+                    // workaround to go to a nested fragment inside viewpager
+                    navController.navigate(Uri.parse("app://viewpager/child3/nested"))
                 }
             }
         }

@@ -31,8 +31,6 @@
             app:destination="@id/secondLevelFragment2" />
     </fragment>
 
-    <include app:graph="@navigation/viewpager_navigation" />
-
     <fragment
         android:id="@+id/secondLevelFragment2"
         android:name="com.meanwhile.featureb.SecondLevelFragment"
@@ -42,18 +40,32 @@
             app:action="ACTION_VIEW"
             app:uri="http://nav/secondlevel" />
     </fragment>
+
+    <include app:graph="@navigation/viewpager_navigation" />
+
+    <fragment
+        android:id="@+id/navigation_root"
+        android:name="com.meanwhile.viewpager.RootFragment"
+        android:label="@string/title_viewpager"
+        tools:layout="@layout/fragment_root">
+        <argument
+            android:name="position"
+            android:defaultValue="0" />
+
+        <deepLink app:uri="app://root/{position}" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_global_navigation_root"
+        app:destination="@id/navigation_root" />
+    <action
+        android:id="@+id/action_global_navigation_viewpager"
+        app:destination="@id/viewpager_graph" />
     <action
         android:id="@+id/action_global_navigation_home"
         app:destination="@id/navigation_home" />
     <action
         android:id="@+id/action_global_navigation_dashboard"
         app:destination="@id/navigation_dashboard" />
-    <action
-        android:id="@+id/action_global_navigation_viewpager"
-        app:destination="@id/viewpager_graph">
-        <argument
-            android:name="page"
-            android:defaultValue="1" />
-    </action>
 
 </navigation>
