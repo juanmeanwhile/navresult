@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.action_navigation_notifications_to_secondLevelFragment2)
                 }
                 is Destination.Root -> {
-                    val args = RootFragment.generateArgs(2)
+                    val args = RootFragment.generateArgs(destination.position)
                     navController.navigate(R.id.action_global_navigation_root, args)
                 }
                 is Destination.Deeplink -> {
