@@ -17,7 +17,6 @@ import com.meanwhile.navigation_main_comms.Destination
 import com.meanwhile.navigation_main_comms.NavigationViewModel
 import com.meanwhile.navigation_main_comms.setFragmentNavigationListener
 import com.meanwhile.viewpager.RootFragment
-import com.meanwhile.viewpager.ViewpagerFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -58,16 +57,14 @@ class MainActivity : AppCompatActivity() {
                 is Destination.DestinationWithOrigin -> {
                     navController.navigate(R.id.action_navigation_notifications_to_secondLevelFragment2)
                 }
-
-                // this should be only used inside root
-                is Destination.ViewPager -> {
-                    val args = ViewpagerFragment.generateArgs(destination.position)
-                    navController.navigate(R.id.action_global_navigation_viewpager, args)
+                is Destination.Root -> {
+                    val args = RootFragment.generateArgs(2)
+                    navController.navigate(R.id.action_global_navigation_root, args)
                 }
                 is Destination.Deeplink -> {
                     navController.navigate(Uri.parse(destination.uri))
                 }
-                Destination.Nested -> {
+                is Destination.Nested -> {
                     // in this case it's hardcoded because we know that nested action is on pos 2
                     val args = RootFragment.generateArgs(2)
                     navController.navigate(R.id.action_global_navigation_root, args)

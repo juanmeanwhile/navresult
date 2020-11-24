@@ -10,7 +10,10 @@
         android:name="com.meanwhile.viewpager.ViewpagerFragment"
         android:label="ViewPagerFragment"
         tools:layout="@layout/fragment_viewpager">
-        <deepLink app:uri="app://viewpager" />
+        <argument
+            android:name="position"
+            android:defaultValue="0" />
+
         <action
             android:id="@+id/action_viewPager_to_Child1"
             app:destination="@id/viewpager_child1" />

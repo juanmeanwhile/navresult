@@ -50,7 +50,7 @@ class DashboardFragment : Fragment() {
         }
 
         root.findViewById<Button>(R.id.button3).setOnClickListener {
-            navigateToDestination(Destination.ViewPager())
+            navigateToDestination(Destination.Root())
         }
 
         root.findViewById<Button>(R.id.button4).setOnClickListener {
