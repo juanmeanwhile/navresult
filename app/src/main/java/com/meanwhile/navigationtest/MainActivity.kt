@@ -1,10 +1,12 @@
 package com.meanwhile.navigationtest
 
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -53,7 +55,10 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.action_global_navigation_dashboard)
                 }
                 is Destination.DestinationWithOrigin -> {
-                    navController.navigate(R.id.action_navigation_notifications_to_secondLevelFragment2)
+                    val sharedView = findViewById<TextView>(R.id.sharedTitle)
+                    val extras = FragmentNavigatorExtras(sharedView to destination.origin)
+
+                    navController.navigate(R.id.action_navigation_notifications_to_secondLevelFragment2, null, null, extras)
                 }
             }
         }

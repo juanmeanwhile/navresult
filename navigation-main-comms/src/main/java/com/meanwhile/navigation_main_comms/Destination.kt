@@ -22,6 +22,6 @@ sealed class Destination() : Parcelable {
     abstract class DestinationWithOrigin(val origin: String) : Destination()
 
     @Parcelize
-    object NotificationSecondLevel : DestinationWithOrigin("notifs")
+    class NotificationSecondLevel(private val sharedViewTransitionName: String) : DestinationWithOrigin(sharedViewTransitionName)
 
 }

@@ -30,7 +30,8 @@ class NotificationsFragment : Fragment() {
 
         val button = root.findViewById<Button>(R.id.button3)
         button.setOnClickListener {
-            navigateToDestination(Destination.NotificationSecondLevel)
+            val sharedView = root.findViewById<TextView>(R.id.sharedTitle);
+            navigateToDestination(Destination.NotificationSecondLevel(sharedView.transitionName))
         }
 
         return root
