@@ -56,7 +56,6 @@ class DashboardFragment : Fragment() {
 
     private fun setupObservers() {
 
-
         lifecycleScope.launchWhenStarted {
             navViewModel.navEventLiveData(NavEvent.InterestingMainEvent).observe(viewLifecycleOwner) {
                 Toast.makeText(requireContext(), "Received ${it.toString()}", Toast.LENGTH_SHORT).show()

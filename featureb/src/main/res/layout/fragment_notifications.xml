@@ -22,6 +22,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/sharedTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I'm shared"
+        android:padding="8dp"
+        android:textColor="#fff"
+        android:background="@color/design_default_color_primary"
+        android:transitionName="sharedTopText"
+        />
+
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
