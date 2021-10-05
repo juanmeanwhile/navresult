@@ -11,8 +11,7 @@
         android:theme="@style/Theme.Navigationtest">
         <activity
             android:name="com.meanwhile.navigationtest.MainActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleTop">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -7,20 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.meanwhile.featurea.DashboardFragment.Companion.RET_RESULT
-import com.meanwhile.navigation.common.IntentNavigation
+import com.meanwhile.navigation.common.Navigator
 import com.meanwhile.navigation.common.common_destinations.NotificationsDirections
 import com.meanwhile.navigation.util.setMainFragmentResult
 import kotlinx.parcelize.Parcelize
 
 class DashboardFragment : Fragment() {
-
+    private val navigator = Navigator.inject() // This would be injected with hilt in production, allowing for test fakes
 
     private lateinit var dashboardViewModel: DashboardViewModel
 
@@ -39,12 +37,7 @@ class DashboardFragment : Fragment() {
         })
 
         root.findViewById<Button>(R.id.button).setOnClickListener {
-            startActivity(
-                IntentNavigation.getMainNavigationIntent(
-                    requireContext(),
-                    NotificationsDirections("Coming from Dashboard")
-                )
-            )
+            navigator.navigateTo(NotificationsDirections("Coming from Dashboard"))
         }
 
         root.findViewById<Button>(R.id.button2).setOnClickListener {

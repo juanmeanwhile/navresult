@@ -8,12 +8,14 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.meanwhile.navigation.common.IntentNavigation
+import com.meanwhile.navigation.common.Navigator
 import com.meanwhile.navigation.common.common_destinations.NotificationsDirections
 
 class NotificationsFragment : Fragment() {
+
     private val args by NotificationsDirections
 
+    private val navigator = Navigator.inject() // This would be injected with hilt in production, allowing for test fakes
     private lateinit var notificationsViewModel: NotificationsViewModel
 
     override fun onCreateView(
@@ -31,9 +33,7 @@ class NotificationsFragment : Fragment() {
 
         val button = root.findViewById<Button>(R.id.button3)
         button.setOnClickListener {
-            startActivity(
-                IntentNavigation.getMainNavigationIntent(requireContext(), SecondLevelNavDirections("param1", "param2"))
-            )
+            navigator.navigateTo(SecondLevelNavDirections("param1", "param2"))
         }
 
         return root

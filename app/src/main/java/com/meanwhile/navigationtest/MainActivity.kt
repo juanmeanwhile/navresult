@@ -1,9 +1,9 @@
 package com.meanwhile.navigationtest
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,9 +12,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.meanwhile.featurea.DashboardFragment
 import com.meanwhile.featurea.toDashBoardResult
-import com.meanwhile.navigation.common.IntentNavigation
+import com.meanwhile.navigation.common.Navigator
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+    private val navigator = Navigator.inject() // This would be injected with hilt in production, allowing for test fakes
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,33 +43,29 @@ class MainActivity : AppCompatActivity() {
             val result = bundle.toDashBoardResult()
             Toast.makeText(this, "Received: ${result.data}", Toast.LENGTH_LONG).show()
         }
-    }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-
-        if (intent.hasExtra(IntentNavigation.EXTRA_TARGET_DESTINATION)) {
-            handleNavigationTarget(intent)
+        lifecycleScope.launch {
+            navigator.navigationDestinations.collect(::handleNavigationTarget)
         }
     }
 
-    private fun handleNavigationTarget(intent: Intent) {
+    private fun handleNavigationTarget(navigationDestination: Navigator.NavigationDestination) {
         val controller = findNavController(R.id.nav_host_fragment)
-        val replacers = intent.getIntArrayExtra(IntentNavigation.EXTRA_TARGET_REPLACERS) ?: intArrayOf()
 
         val currentScreen = controller.currentDestination?.id
         val navOptions = NavOptions.Builder()
 
-        for (screenToReplace in replacers) {
-            if (currentScreen == screenToReplace) {
+        for (screenToReplaceString in navigationDestination.replaceDestinations) {
+            val screenToReplace = resources.getIdentifier(screenToReplaceString, "id", packageName)
+
+            if (screenToReplace != 0 && currentScreen == screenToReplace) {
                 navOptions.setPopUpTo(screenToReplace, true)
             }
         }
 
-        val destination = intent.getIntExtra(IntentNavigation.EXTRA_TARGET_DESTINATION, 0)
-
+        val destination = navigationDestination.directions.actionId
         if (currentScreen != destination) {
-            controller.navigate(destination, intent.getBundleExtra(IntentNavigation.EXTRA_TARGET_ARGS), navOptions.build())
+            controller.navigate(destination, navigationDestination.directions.arguments, navOptions.build())
         }
     }
 }
