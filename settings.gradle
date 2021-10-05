@@ -1,5 +1,5 @@
 include ':featureb'
-include ':navigation-main-comms'
+include ':navigation-common'
 include ':featurea'
 include ':app'
 rootProject.name = "Navigationtest"

@@ -14,18 +14,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.meanwhile.featurea.DashboardFragment.Companion.RET_RESULT
-import com.meanwhile.navigation_main_comms.Destination
-import com.meanwhile.navigation_main_comms.NavEvent
-import com.meanwhile.navigation_main_comms.NavigationViewModel
-import com.meanwhile.navigation_main_comms.navigateToDestination
-import com.meanwhile.navigation_main_comms.setMainFragmentResult
-import kotlinx.android.parcel.Parcelize
+import com.meanwhile.navigation.common.IntentNavigation
+import com.meanwhile.navigation.common.common_destinations.NotificationsDirections
+import com.meanwhile.navigation.util.setMainFragmentResult
+import kotlinx.parcelize.Parcelize
 
 class DashboardFragment : Fragment() {
 
+
     private lateinit var dashboardViewModel: DashboardViewModel
 
-    private lateinit var navViewModel: NavigationViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -33,7 +31,6 @@ class DashboardFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
-        navViewModel = ViewModelProvider(requireActivity()).get(NavigationViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
         val textView: TextView = root.findViewById(R.id.text_dashboard)
@@ -42,26 +39,19 @@ class DashboardFragment : Fragment() {
         })
 
         root.findViewById<Button>(R.id.button).setOnClickListener {
-            navigateToDestination(Destination.Notifications("Coming from Dashboard"))
+            startActivity(
+                IntentNavigation.getMainNavigationIntent(
+                    requireContext(),
+                    NotificationsDirections("Coming from Dashboard")
+                )
+            )
         }
 
         root.findViewById<Button>(R.id.button2).setOnClickListener {
             setMainFragmentResult(REQ_KEY, bundleOf(RET_RESULT to DashBoardResult("XXX")))
         }
 
-        setupObservers()
-
         return root
-    }
-
-    private fun setupObservers() {
-
-
-        lifecycleScope.launchWhenStarted {
-            navViewModel.navEventLiveData(NavEvent.InterestingMainEvent).observe(viewLifecycleOwner) {
-                Toast.makeText(requireContext(), "Received ${it.toString()}", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
     @Parcelize
