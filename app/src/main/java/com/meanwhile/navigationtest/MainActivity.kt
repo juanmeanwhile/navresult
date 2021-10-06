@@ -3,6 +3,7 @@ package com.meanwhile.navigationtest
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            navigator.navigationDestinations.collect(::handleNavigationTarget)
+            navigator.navigationDestinations.flowWithLifecycle(lifecycle).collect(::handleNavigationTarget)
         }
     }
 

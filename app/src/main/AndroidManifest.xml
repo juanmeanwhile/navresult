@@ -21,6 +21,8 @@
             <nav-graph android:value="@navigation/mobile_navigation" />
 
         </activity>
+
+        <activity android:name=".OtherActivity" />
     </application>
 
 </manifest>
