@@ -13,6 +13,9 @@ abstract class MeanwhileNavDirections : NavDirections, Parcelable {
             putParcelable(ARG_DIRECTIONS, this@MeanwhileNavDirections)
         }
     }
+
+    open val showBottomNavigationBar: Boolean
+        get() = true
 }
 
 abstract class NavDirectionsCompanion<T : MeanwhileNavDirections> {
@@ -21,7 +24,8 @@ abstract class NavDirectionsCompanion<T : MeanwhileNavDirections> {
     }
 
     open fun createDefault(): T {
-        throw IllegalStateException("Fragment does not contain any nav directions. Was it started using IntentNavigation?")
+        throw IllegalStateException("Fragment was not started using Navigator. If this fragment is supposed to be started on its own, you need to override " +
+            "createDefault in its NavDirections's companion.")
     }
 
     operator fun provideDelegate(thisRef: Fragment, property: KProperty<*>): ReadOnlyProperty<Fragment, T> {

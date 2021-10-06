@@ -1,8 +1,10 @@
 package com.meanwhile.navigationtest
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
@@ -13,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.meanwhile.featurea.DashboardFragment
 import com.meanwhile.featurea.toDashBoardResult
+import com.meanwhile.navigation.common.NavigationDestination
 import com.meanwhile.navigation.common.Navigator
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -48,6 +51,8 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             navigator.navigationDestinations.flowWithLifecycle(lifecycle).collect(::handleNavigationTarget)
         }
+
+        findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { _, _, _ -> onNavigationDestinationChanged() }
     }
 
     private fun handleNavigationTarget(navigationDestination: Navigator.NavigationDestination) {
@@ -68,5 +73,14 @@ class MainActivity : AppCompatActivity() {
         if (currentScreen != destination) {
             controller.navigate(destination, navigationDestination.directions.arguments, navOptions.build())
         }
+    }
+
+    private fun onNavigationDestinationChanged() {
+        val navHost = supportFragmentManager.primaryNavigationFragment ?: return
+        navHost.childFragmentManager.executePendingTransactions()
+        val currentFragment = navHost.childFragmentManager.primaryNavigationFragment
+        val currentArgs = (currentFragment as? NavigationDestination)?.args
+
+        findViewById<View>(R.id.nav_view).isVisible = currentArgs?.showBottomNavigationBar != false
     }
 }

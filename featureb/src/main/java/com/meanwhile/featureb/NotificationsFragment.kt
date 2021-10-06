@@ -8,12 +8,12 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.meanwhile.navigation.common.NavigationDestination
 import com.meanwhile.navigation.common.Navigator
 import com.meanwhile.navigation.common.common_destinations.NotificationsDirections
 
-class NotificationsFragment : Fragment() {
-
-    private val args by NotificationsDirections
+class NotificationsFragment : Fragment(), NavigationDestination {
+    override val args by NotificationsDirections
 
     private val navigator = Navigator.inject() // This would be injected with hilt in production, allowing for test fakes
     private lateinit var notificationsViewModel: NotificationsViewModel

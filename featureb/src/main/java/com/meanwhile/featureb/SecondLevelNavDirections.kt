@@ -10,5 +10,8 @@ data class SecondLevelNavDirections(val param1: String, val param2: String): Mea
         return R.id.action_navigation_notifications_to_secondLevelFragment2
     }
 
+    override val showBottomNavigationBar: Boolean
+        get() = false
+
     companion object: NavDirectionsCompanion<SecondLevelNavDirections>()
 }
