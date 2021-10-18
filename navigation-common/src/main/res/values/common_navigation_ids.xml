@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="mobile_navigation" type="id" />
+    <item name="navigation_home" type="id" />
+    <item name="navigation_dashboard" type="id" />
+    <item name="action_navigation_dashboard_to_navigation_notifications" type="id" />
+    <item name="navigation_notifications" type="id" />
+    <item name="action_navigation_notifications_to_secondLevelFragment2" type="id" />
+    <item name="deepLink" type="id" />
+    <item name="action_global_navigation_home" type="id" />
+    <item name="action_global_navigation_dashboard" type="id" />
+</resources>
